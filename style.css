@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap');
-@view-transition{navigation:auto}
+/* style.css — hoja única del sitio. Ver DOCS.md para el mapa completo de cómo se logra cada animación.
+   Secciones: base · nav compartido · currently · HOME · WORK · NOTES · ABOUT · CONTACT · TRANSICIONES DE PÁGINA */
+@view-transition{navigation:auto} /* activa las transiciones entre documentos; las dos páginas deben tenerlo */
 :root{--ink:#12141a;--paper:#e8eaec;--blue:#2b44ff;--mute:#5f6572;--line:#12141a1c;
 --disp:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -8,10 +9,12 @@ body{min-height:100svh;background:repeating-linear-gradient(transparent 0 31px,v
 a{color:inherit;text-decoration:none}
 a:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 ul,ol{list-style:none}
+/* Tipografía display gigante: se reutiliza en todos los títulos; cada página sobreescribe el tamaño */
 .giant{font:900 clamp(5rem,20vw,19rem)/.8 var(--disp);letter-spacing:-.02em;text-transform:uppercase}
 .pad{padding:6rem clamp(1rem,4vw,3rem) 3rem}
 
 /* shared nav */
+/* Nav fijo compartido. mix-blend-mode:difference invierte el color según lo que haya detrás (sirve sobre claro y oscuro) */
 .top{position:fixed;inset:0 0 auto;z-index:9;display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;padding:1rem clamp(1rem,4vw,3rem);color:#fff;mix-blend-mode:difference}
 .top a:first-child{font-weight:700;margin-right:auto}
 .top a{padding:.1rem 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 2px no-repeat;transition:background-size .25s}
@@ -23,34 +26,53 @@ ul,ol{list-style:none}
 @keyframes pulse{50%{opacity:.25}}
 
 /* HOME */
-.home{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding:clamp(1rem,4vw,3rem);overflow:hidden}
+/* .rel = contenido del home (fijo, tamaño de ventana; también es un grupo de transición, ver TRANSICIONES). Filas minmax(0,1fr): el pie nunca se sale de la pantalla; el hero se encoge con el zoom */
+.home .rel{position:fixed;inset:0;display:grid;grid-template-rows:minmax(0,1fr) auto;padding:clamp(1rem,4vw,3rem);overflow:hidden}
 .hero{align-self:center;display:grid;gap:1.6rem}
-.name{transform:rotate(-4deg);transform-origin:left bottom;margin-bottom:.4em}
+.name{font-size:clamp(4rem,min(20vw,22vh),19rem);transform:rotate(-4deg);transform-origin:left bottom;margin-bottom:.4em}
+/* Entrada del nombre: revela con clip-path (slam). El 2º span llega .14s después */
 .name span{display:block;animation:slam 1s cubic-bezier(.7,0,.2,1) both}
 .name span+span{margin-left:12vw;animation-delay:.14s}
 @keyframes slam{from{clip-path:inset(0 100% 0 0);translate:-6% 0}to{clip-path:inset(0);translate:0}}
+/* Si el home llega mediante una transición de página, no se reproduce el slam (la entrada ya la hace la transición) */
+@supports selector(:active-view-transition){html:active-view-transition .name span{animation:none}}
 .role{margin-left:min(30vw,26rem);font:800 clamp(1.4rem,3vw,2.4rem)/1 var(--disp);letter-spacing:.06em}
 .cmd,.links{width:min(34rem,100%)}
 .cmd{display:flex;align-items:center;gap:.6rem;border:2px solid var(--ink);background:var(--paper);padding:.5rem .9rem;min-height:3rem}
 .cmd .p{color:var(--blue);font-weight:700}
 .cmd .c{width:.6em;height:1.1em;background:var(--ink);animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
+/* Comandos "tecleados": ocultos hasta que su enlace tiene hover/focus; al pasar a display:block la animación type se reinicia (steps = efecto máquina de escribir) */
 .t{display:none;overflow:hidden;white-space:nowrap;border-right:2px solid;animation:type .4s steps(9) both}
 @keyframes type{from{max-width:0}to{max-width:var(--n)}}
-.links{display:flex;justify-content:space-between;margin-top:-.8rem;padding:0 .4rem}
-.links a{font-weight:700;padding:.2rem 0;border-bottom:2px solid transparent;transition:border-color .2s,color .2s}
-.links a:hover,.links a:focus-visible{border-color:var(--blue);color:var(--blue)}
+.links{display:flex;justify-content:space-between;margin-top:1.7rem;padding:0 .9rem}
+/* PLACA estilo menú de Persona (compartida por .links a y los meses .ring label):
+   ::before = plano negro asimétrico (clip-path --shape, distinto por botón) con degradado; ::after = "sombra" azul desplazada detrás.
+   En hover/foco la placa crece, se inclina y aparece la sombra (en los meses la sombra depende de --a: solo el mes activo). */
+.links a,.ring label{--shape:polygon(0 12%,96% 0,100% 88%,4% 100%);position:relative;isolation:isolate;color:#fff}
+.links a::before,.ring label::before,.links a::after,.ring label::after{content:"";position:absolute;inset:-.45rem -.9rem;z-index:-1;clip-path:var(--shape);transition:scale .25s cubic-bezier(.3,1.6,.5,1),rotate .25s,translate .25s,opacity .25s}
+.links a::before,.ring label::before{background:linear-gradient(100deg,var(--ink) 55%,#323848)}
+.links a::after,.ring label::after{z-index:-2;background:var(--blue);opacity:0}
+.links a{display:inline-block;font-weight:700;padding:.3rem .2rem}
+.links a:nth-child(2),.ring label:nth-child(even){--shape:polygon(4% 0,100% 14%,94% 100%,0 84%)}
+.links a:nth-child(3){--shape:polygon(0 0,100% 8%,97% 100%,3% 90%)}
+.links a:nth-child(4){--shape:polygon(3% 10%,100% 0,95% 88%,0 100%)}
+.links a:is(:hover,:focus-visible)::before,.links a:is(:hover,:focus-visible)::after,.ring label:hover::before{scale:1.12 1.3;rotate:-2deg}
+.links a:is(:hover,:focus-visible)::after{opacity:1;translate:.4rem .45rem}
+/* :has() en .home ata cada enlace .lN con su comando .tN (y oculta el cursor .c) sin JS */
 .home:has(.l1:is(:hover,:focus-visible)) .c,.home:has(.l2:is(:hover,:focus-visible)) .c,.home:has(.l3:is(:hover,:focus-visible)) .c,.home:has(.l4:is(:hover,:focus-visible)) .c{display:none}
 .home:has(.l1:is(:hover,:focus-visible)) .t1,.home:has(.l2:is(:hover,:focus-visible)) .t2,.home:has(.l3:is(:hover,:focus-visible)) .t3,.home:has(.l4:is(:hover,:focus-visible)) .t4{display:inline-block}
 .foot{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:1rem}
-.foot .cur{justify-self:end}
+.foot .cur{justify-self:end;margin-right:clamp(1rem,6vw,6rem)}
 
 /* WORK */
+/* timeline-scope en body: deja que .pn (fuera de .rail) lea el scroll de .rail para girar el tambor */
 body{timeline-scope:--rail}
 .rail{scroll-timeline:--rail x;display:flex;height:100svh;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth}
 .slide{position:relative;flex:0 0 100vw;scroll-snap-align:start;background:var(--bg);color:#fff;perspective:1100px;overflow:hidden}
+/* Diagonal: panel claro recortado con clip-path; --bg (inline por slide) cambia el color de cada proyecto */
 .slide::before{content:"";position:absolute;inset:0;background:var(--paper);clip-path:polygon(50% 0,100% 0,100% 100%,36% 100%)}
-.in{position:relative;height:100%;display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;padding:6rem clamp(1rem,4vw,3rem) 8rem}
+.in{position:relative;height:100%;display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;padding:6rem clamp(1rem,4vw,3rem) 11rem}
 .l{align-self:center;transform:rotate(-12deg);transform-origin:left bottom}
 .l .giant{font-size:clamp(4rem,14vw,13rem)}
 .pname{display:inline-block;margin-top:.6rem;font:800 clamp(1.6rem,4vw,3.4rem)/1 var(--disp);letter-spacing:.04em;background:repeating-linear-gradient(-55deg,#fff5 0 2px,transparent 2px 7px);padding:.3rem .8rem}
@@ -65,8 +87,11 @@ body{timeline-scope:--rail}
 .meta{display:grid;gap:.3rem;width:min(26rem,100%)}
 .meta div{display:grid;grid-template-columns:6rem 1fr;align-items:center}
 .meta dt{color:var(--mute)}
+/* Barra rayada: --w (inline) es el porcentaje relleno */
 .bar{display:block;height:.9rem;width:100%;border:2px solid var(--ink);background:repeating-linear-gradient(135deg,var(--ink) 0 3px,transparent 3px 7px) 0/var(--w) 100% no-repeat}
-.pn{--R:clamp(14rem,36vw,24rem);--w:calc(var(--R)*.4);position:fixed;inset:auto 0 0;z-index:9;height:7.5rem;display:grid;place-items:center;perspective:900px;color:#fff;mix-blend-mode:difference;font-weight:700}
+/* Menú de proyectos 3D. --R radio del cilindro, --w ancho de placa. Perspective en .pn, preserve-3d en .drum; cada a se coloca con rotateY(--i*26deg) translateZ(--R).
+   El tambor gira con el scroll de .rail (animation-timeline) y "lit" resalta la placa activa. Sin soporte de scroll-timeline queda estático pero navegable. */
+.pn{--R:clamp(14rem,36vw,24rem);--w:calc(var(--R)*.4);position:fixed;inset:auto 0 clamp(1.5rem,5vh,3.5rem);z-index:9;height:7.5rem;display:grid;place-items:center;perspective:900px;color:#fff;mix-blend-mode:difference;font-weight:700}
 .pn>span{position:absolute;top:50%;translate:0 -50%;font-size:1.6rem}
 .pn>span:first-child{left:clamp(1rem,4vw,3rem)}.pn>span:last-child{right:clamp(1rem,4vw,3rem)}
 .drum{position:relative;width:0;height:3.8rem;transform-style:preserve-3d;transform:translateZ(calc(var(--R)*-1)) rotateX(-9deg)}
@@ -83,18 +108,60 @@ body{timeline-scope:--rail}
 .in{animation:tilt linear both;animation-timeline:view(inline)}
 @keyframes tilt{0%{transform:rotateY(38deg) translateX(18%) scale(.82);opacity:.2}50%{transform:none;opacity:1}100%{transform:rotateY(-38deg) translateX(-18%) scale(.82);opacity:.2}}}
 
-/* NOTES */
+/* NOTES — calendario 3D sin JS (jul 2026 → dic 2028).
+   Radios #m0..#m29 van ANTES de .yr/.months/.feed; la regla #mN:checked~*{--s:N} inyecta el índice elegido (--s) en todos los hermanos siguientes.
+   Cada label lleva su índice (--i). --k = --i − --s (posición respecto al mes elegido, 0 = centro): cada placa se desplaza en X, se aleja en Z
+   y gira hacia el centro según --k, así que al pulsar un mes todo se re-centra con transition (entra uno por la derecha, sale otro por la izquierda). */
 .notes input{position:absolute;opacity:0;pointer-events:none}
 .notes input:focus-visible~.months{outline:2px solid var(--blue);outline-offset:6px}
-.months{display:flex;justify-content:space-between;margin-top:1.5rem;padding-bottom:1.6rem;border-bottom:2px solid var(--ink)}
-.months label{position:relative;cursor:pointer;font:800 clamp(1.1rem,2.6vw,1.9rem)/1 var(--disp);letter-spacing:.05em;color:var(--mute);transition:color .2s}
-.months label:hover{color:var(--ink)}
-.months label::after{content:"^";position:absolute;left:50%;top:100%;translate:-50% 0;opacity:0;transition:opacity .2s}
-#jul:checked~.months [for=jul],#aug:checked~.months [for=aug],#sep:checked~.months [for=sep],#oct:checked~.months [for=oct],#nov:checked~.months [for=nov]{color:var(--blue)}
-#jul:checked~.months [for=jul]::after,#aug:checked~.months [for=aug]::after,#sep:checked~.months [for=sep]::after,#oct:checked~.months [for=oct]::after,#nov:checked~.months [for=nov]::after{opacity:1}
+/* Año: un h1 por año; solo se muestra el del radio marcado (clases y26/y27/y28). Al pasar de display:none a block se reproduce "rise" */
+.yr{display:none;animation:rise .45s cubic-bezier(.2,.7,.2,1) both}
+.y26:checked~.yr26,.y27:checked~.yr27,.y28:checked~.yr28{display:block}
+.months{--w:clamp(4.5rem,12vw,6.5rem);position:relative;height:7.5rem;margin-top:2rem;perspective:800px;overflow:hidden;border-bottom:2px solid var(--ink)}
+.ring{position:absolute;inset:0;transform-style:preserve-3d}
+/* --d distancia al mes elegido; --a = 1 solo en el activo (más grande, con sombra azul). La opacidad cae con la distancia */
+.ring label{--k:calc(var(--i) - var(--s));--d:max(var(--k),calc(var(--k)*-1));--a:clamp(0,calc(1 - var(--d)),1);position:absolute;left:calc(50% - var(--w)/2);top:1.6rem;width:var(--w);height:3.6rem;display:grid;place-content:center;text-align:center;line-height:1;cursor:pointer;
+transform:translateX(calc(var(--k)*var(--w)*1.4)) translateZ(calc(var(--d)*-3.5rem)) rotateY(clamp(-55deg,calc(var(--k)*-26deg),55deg));scale:calc(1 + var(--a)*.25);opacity:calc(1.15 - var(--d)*.22);
+transition:transform .55s cubic-bezier(.7,0,.2,1),scale .4s,opacity .4s}
+.ring label::after{opacity:var(--a);translate:calc(var(--a)*.4rem) calc(var(--a)*.45rem)}
+.ring b{font:800 1.7rem/1 var(--disp);letter-spacing:.05em;text-transform:uppercase}
+.ring small{font-size:10px;margin-top:.2rem}
 .feed{max-width:44rem;margin:3rem auto 0;min-height:16rem}
+/* Feed: cada mes con entradas tiene su <ol>; .none se muestra salvo que el mes elegido tenga <ol> (ampliar: añade su regla abajo) */
 .feed ol{display:none}
-#jul:checked~.feed .jul,#aug:checked~.feed .aug,#sep:checked~.feed .sep,#oct:checked~.feed .oct,#nov:checked~.feed .nov{display:block}
+.feed .none{color:var(--mute);animation:rise .45s both}
+#m0:checked~.feed .none,#m1:checked~.feed .none,#m2:checked~.feed .none{display:none}
+#m0:checked~.feed .jul,#m1:checked~.feed .aug,#m2:checked~.feed .sep{display:block}
+#m0:checked~*{--s:0}
+#m1:checked~*{--s:1}
+#m2:checked~*{--s:2}
+#m3:checked~*{--s:3}
+#m4:checked~*{--s:4}
+#m5:checked~*{--s:5}
+#m6:checked~*{--s:6}
+#m7:checked~*{--s:7}
+#m8:checked~*{--s:8}
+#m9:checked~*{--s:9}
+#m10:checked~*{--s:10}
+#m11:checked~*{--s:11}
+#m12:checked~*{--s:12}
+#m13:checked~*{--s:13}
+#m14:checked~*{--s:14}
+#m15:checked~*{--s:15}
+#m16:checked~*{--s:16}
+#m17:checked~*{--s:17}
+#m18:checked~*{--s:18}
+#m19:checked~*{--s:19}
+#m20:checked~*{--s:20}
+#m21:checked~*{--s:21}
+#m22:checked~*{--s:22}
+#m23:checked~*{--s:23}
+#m24:checked~*{--s:24}
+#m25:checked~*{--s:25}
+#m26:checked~*{--s:26}
+#m27:checked~*{--s:27}
+#m28:checked~*{--s:28}
+#m29:checked~*{--s:29}
 .feed li{display:grid;grid-template-columns:3rem 9rem 1fr;padding:.5rem 0;animation:rise .45s cubic-bezier(.2,.7,.2,1) both}
 .feed li:nth-child(2){animation-delay:.06s}.feed li:nth-child(3){animation-delay:.12s}.feed li:nth-child(4){animation-delay:.18s}
 @keyframes rise{from{opacity:0;translate:0 1.2rem}}
@@ -102,11 +169,10 @@ body{timeline-scope:--rail}
 .feed .k{color:var(--blue);font-weight:700}
 .feed a{transition:translate .2s;text-decoration:underline transparent 2px;text-underline-offset:5px}
 .feed a:hover{translate:.6rem 0;text-decoration-color:var(--blue)}
-.feed .none{color:var(--mute);animation:rise .45s both}
 
 /* ABOUT */
 .about{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;min-height:100svh}
-.who{grid-area:1/1/3/6;font-size:clamp(6rem,20vw,19rem);align-self:start}
+.who{grid-area:1/1/3/6;font-size:clamp(5rem,16.5vw,15.5rem);line-height:.92;align-self:start}
 .frame{grid-area:1/8/4/13;aspect-ratio:3/4;border:2px solid var(--ink);box-shadow:1rem 1rem 0 var(--blue);margin:2rem 1rem 0 0}
 .bio{grid-area:3/2/5/8;align-self:end;display:grid;gap:1rem;max-width:30rem}
 .bio .big{font:800 clamp(2rem,5vw,4rem)/.95 var(--disp);letter-spacing:.03em}
@@ -124,29 +190,38 @@ body{timeline-scope:--rail}
 .contact li a:hover{background:var(--blue);color:#fff;padding-left:.6rem}
 .contact .cur{max-width:22rem}
 
-/* PAGE TRANSITIONS: --mx/--my = direccion en la que se mueve el contenido al llegar a la pagina */
+/* ===== TRANSICIONES DE PÁGINA =====
+   Mapa espacial: work = izquierda del home · about = derecha · notes = abajo · contact = arriba.
+   --mx/--my: hacia dónde SE MUEVE el contenido al llegar a esa página (1 = derecha/abajo, -1 = izquierda/arriba).
+   Ej. work: mx=1 → el home sale a la derecha y work entra desde la izquierda. --sx: inclinación con la que entra (distinta por página).
+   Cada <html data-page> se captura con nombre propio (pg-*) para saber cuál fue la anterior; todas comparten view-transition-class:pg. */
 html{view-transition-class:pg}
 html[data-page=home]{view-transition-name:pg-home}
-html[data-page=work]{view-transition-name:pg-work;--mx:-1;--my:0;--sx:-10deg}
-html[data-page=notes]{view-transition-name:pg-notes;--mx:0;--my:1;--sx:6deg}
-html[data-page=about]{view-transition-name:pg-about;--mx:1;--my:0;--sx:10deg}
-html[data-page=contact]{view-transition-name:pg-contact;--mx:0;--my:-1;--sx:-6deg}
-::view-transition{background:var(--ink)}
-::view-transition-old(.pg){animation:pg-out .5s cubic-bezier(.85,0,.1,1) both}
+html[data-page=work]{view-transition-name:pg-work;--mx:1;--my:0;--sx:10deg}
+html[data-page=notes]{view-transition-name:pg-notes;--mx:0;--my:-1;--sx:-6deg}
+html[data-page=about]{view-transition-name:pg-about;--mx:-1;--my:0;--sx:-10deg}
+html[data-page=contact]{view-transition-name:pg-contact;--mx:0;--my:1;--sx:6deg}
+::view-transition{background:var(--ink)} /* asoma por los huecos de la inclinación */
+::view-transition-old(.pg){animation:pg-out .5s cubic-bezier(.85,0,.1,1) both} /* ease casi instantáneo: "repentino" como Persona */
 ::view-transition-new(.pg){animation:pg-in .5s cubic-bezier(.85,0,.1,1) both}
 @keyframes pg-out{to{translate:calc(var(--mx,0)*100%) calc(var(--my,0)*100%);filter:brightness(.45)}}
-@keyframes pg-in{from{translate:calc(var(--mx,0)*-100%) calc(var(--my,0)*-100%);transform:skewX(var(--sx,0deg));scale:var(--s,1);filter:brightness(var(--b,1))}}
-/* volver al home: sale en sentido contrario al de ida; el home entra desde el lado opuesto (via #from-*) */
-html[data-page=home]::view-transition-old(pg-work){--mx:1;--my:0}
-html[data-page=home]::view-transition-old(pg-notes){--mx:0;--my:-1}
-html[data-page=home]::view-transition-old(pg-about){--mx:-1;--my:0}
-html[data-page=home]::view-transition-old(pg-contact){--mx:0;--my:1}
-html[data-page=home]::view-transition-new(pg-home){--s:.94;--b:.6}
-html[data-page=home]:has(#from-work:target)::view-transition-new(pg-home){--mx:1;--s:1;--b:1}
-html[data-page=home]:has(#from-notes:target)::view-transition-new(pg-home){--my:-1;--s:1;--b:1}
-html[data-page=home]:has(#from-about:target)::view-transition-new(pg-home){--mx:-1;--s:1;--b:1}
-html[data-page=home]:has(#from-contact:target)::view-transition-new(pg-home){--my:1;--s:1;--b:1}
-.tg{position:absolute;top:0;left:0}
+@keyframes pg-in{from{translate:calc(var(--mx,0)*-100%) calc(var(--my,0)*-100%);transform:skewX(var(--sx,0deg))}}
+/* Al volver al home la página que sale usa el sentido contrario al de su ida (se elige por su nombre pg-*). El fondo del home no se mueve:
+   su contenido viaja como grupo aparte (.rel, abajo). */
+html[data-page=home]::view-transition-old(pg-work){--mx:-1;--my:0}
+html[data-page=home]::view-transition-old(pg-notes){--mx:0;--my:1}
+html[data-page=home]::view-transition-old(pg-about){--mx:1;--my:0}
+html[data-page=home]::view-transition-old(pg-contact){--mx:0;--my:-1}
+html[data-page=home]::view-transition-new(pg-home){animation:none}
+/* .rel: elemento con nombre "rel" en TODAS las páginas. En el home es el contenido real. En las demás es un marcador invisible, a pantalla completa,
+   colocado fuera de la ventana, hacia donde queda el home (--mx/--my de esa página). El navegador anima el grupo desde el rectángulo viejo al nuevo:
+   así el home entra/sale por el lado correcto sin saber de dónde viene y sin JS ni :target. Se anula el fundido para que el contenido viaje opaco. */
+.rel{view-transition-name:rel}
+body:not(.home)>.rel{position:fixed;inset:0;opacity:0;pointer-events:none;translate:calc(var(--mx)*100vw) calc(var(--my)*100vh)}
+::view-transition-group(rel){animation-duration:.5s;animation-timing-function:cubic-bezier(.85,0,.1,1)}
+::view-transition-old(rel){animation:pg-dim .5s cubic-bezier(.85,0,.1,1) both}
+::view-transition-new(rel){animation:none}
+@keyframes pg-dim{to{filter:brightness(.45)}}
 @media(max-width:800px){
 .in{grid-template-columns:1fr;padding-top:5rem}.slide::before{clip-path:polygon(0 52%,100% 38%,100% 100%,0 100%)}
 .l{align-self:start;transform:rotate(-6deg)}.r{align-self:end;padding:0}.blank{display:none}

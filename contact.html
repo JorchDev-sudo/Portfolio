@@ -1,9 +1,16 @@
-<!doctype html><html lang="en" data-page="contact"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact · Jorge Cotera</title><link rel="stylesheet" href="style.css"></head>
+<!doctype html>
+<!-- CONTACT. Sustituye los href="#" de github/linkedin/email. .cur = mismo bloque "currently" del home.
+ Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). --><html lang="en" data-page="contact"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact · Jorge Cotera</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap"><!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
+<link rel="stylesheet" href="style.css">
+<link rel="expect" href="#end" blocking="render"><!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
+<script type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script><!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red --></head>
 <body>
-<header class="top"><a href="index.html#from-contact">jorchdev:~$</a><a href="work.html">work</a><a href="notes.html">notes</a><a href="about.html">about</a><a href="contact.html" aria-current="page">contact</a></header>
+<i class="rel"></i><!-- marcador invisible fuera de pantalla hacia donde queda el home; guía la animación del home (DOCS.md §1) -->
+<header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html">work</a><a href="notes.html">notes</a><a href="about.html">about</a><a href="contact.html" aria-current="page">contact</a></header>
 <main class="pad contact">
 <h1 class="giant">Let's build something!!!</h1>
 <ul><li><span>github:</span><a href="#">github.com/…</a></li><li><span>linkedin:</span><a href="#">linkedin.com/in/…</a></li><li><span>email:</span><a href="#">you@example.com</a></li></ul>
 <aside class="cur"><span>// currently: <i class="dot"></i>online</span><span>// "Doing something"</span></aside>
 </main>
-</body></html>
+<span id="end"></span></body></html>
