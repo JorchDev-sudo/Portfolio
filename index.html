@@ -1,25 +1,53 @@
 <!doctype html>
 <!-- HOME (sketch "Home: Static").
  · data-page="home": engancha las reglas de transición de style.css.
- · .rel: contenido del home; también es el grupo "rel" de las transiciones (ver DOCS.md §1).
+ · .rel: contenedor fijo del contenido del home.
  · .cmd: barra de comandos falsa (aria-hidden). Cada .tN se "teclea" cuando el enlace .lN recibe hover/focus (regla :has en CSS).
- · .cur: bloque "currently"; edita el texto a mano o desde tu backend.
- Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). --><html lang="en" data-page="home"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home · Jorge Cotera</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap"><!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
-<link rel="stylesheet" href="style.css">
-<link rel="expect" href="#end" blocking="render"><!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
-<script type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script><!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red --></head>
+ · .cur: bloque "currently" (online/offline + texto). Lo genera admin/build.js (BUILD:status) desde content/site.json.
+ Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). -->
+<html lang="en" data-page="home">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home · Jorge Cotera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap">
+    <!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
+    <link rel="stylesheet" href="style.css">
+    <script src="transitions.js"></script>
+    <!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
+    <link rel="expect" href="#end" blocking="render">
+    <!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
+    <script
+        type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script>
+    <!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red -->
+</head>
+
 <body class="home">
-<div class="rel">
-<main class="hero">
-<h1 class="giant name"><span>Jorge</span><span>Cotera</span></h1>
-<p class="role">Software engineer</p>
-<div>
-<div class="cmd" aria-hidden="true"><span class="p">/:</span><span class="c"></span>
-<span class="t t1" style="--n:7ch">cd work</span><span class="t t2" style="--n:8ch">ls notes</span><span class="t t3" style="--n:9ch">cat about</span><span class="t t4" style="--n:12ch">mail contact</span></div>
-<nav class="links" aria-label="Main"><a class="l1" href="work.html">work</a><a class="l2" href="notes.html">notes</a><a class="l3" href="about.html">about</a><a class="l4" href="contact.html">contact</a></nav>
-</div>
-</main>
-<footer class="foot"><span></span><span>2026</span><aside class="cur"><span>// currently: <i class="dot"></i>online</span><span>// "Doing something"</span></aside></footer>
-</div>
-<span id="end"></span></body></html>
+    <div class="rel">
+        <main class="hero">
+            <h1 class="giant name"><span>Jorge</span><span>Cotera</span></h1>
+            <p class="role">Software engineer</p>
+            <div>
+                <div class="cmd" aria-hidden="true"><span class="p">/:</span><span class="c"></span>
+                    <span class="t t1" style="--n:7ch">cd work</span><span class="t t2" style="--n:8ch">ls
+                        notes</span><span class="t t3" style="--n:9ch">cat about</span><span class="t t4"
+                        style="--n:12ch">mail contact</span>
+                </div>
+                <nav class="links" aria-label="Main"><a class="l1" href="work.html">work</a><a class="l2"
+                        href="notes.html">notes</a><a class="l3" href="about.html">about</a><a class="l4"
+                        href="contact.html">contact</a></nav>
+            </div>
+        </main>
+        <footer class="foot"><!-- BUILD:status -->
+<aside class="cur"><span>// currently: <i class="dot"></i>online</span><span>// "Working on a job that doesn&#39;t pay the bills"</span></aside>
+<!-- /BUILD:status -->
+        </footer>
+    </div>
+    <span id="end"></span>
+</body>
+
+</html>
