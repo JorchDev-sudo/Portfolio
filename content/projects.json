@@ -1,0 +1,42 @@
+[
+  {
+    "id": "poketeams",
+    "title": "Poketeams",
+    "color": "#2b44ff",
+    "stack": "Java, Spring Boot, GraphQL, React",
+    "role": "Full-stack",
+    "status": 87,
+    "image": "",
+    "summary": "A Pokémon team management platform built with Spring Boot, GraphQL and React."
+  },
+  {
+    "id": "home-lab",
+    "title": "Home lab",
+    "color": "#12141a",
+    "stack": "Linux, Networking, Docker",
+    "role": "Everything",
+    "status": 60,
+    "image": "",
+    "summary": "A home lab for learning Linux, networking and Docker."
+  },
+  {
+    "id": "project-03",
+    "title": "Project 03",
+    "color": "#2f3a4c",
+    "stack": "",
+    "role": "",
+    "status": 0,
+    "image": "",
+    "summary": ""
+  },
+  {
+    "id": "project-04",
+    "title": "Project 04",
+    "color": "#0b5d57",
+    "stack": "",
+    "role": "",
+    "status": 0,
+    "image": "",
+    "summary": ""
+  }
+]

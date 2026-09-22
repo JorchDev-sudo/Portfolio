@@ -1,0 +1,19 @@
+{
+  "calendar": {
+    "start": "2026-07",
+    "end": "2028-12"
+  },
+  "status": {
+    "state": "online",
+    "doing": "Doing something"
+  },
+  "about": {
+    "description": "I like understanding how things work. From Linux internals to backend architecture to distributed systems.",
+    "location": "",
+    "focus": "",
+    "currently": "",
+    "portraitText": "",
+    "image": "img/portfolio-mudap6d5.jpg",
+    "resumeUrl": ""
+  }
+}
