@@ -4,44 +4,24 @@
  · Clases y26/y27/y28 en cada radio deciden qué año (.yr26/.yr27/.yr28) se muestra.
  · .feed: una <ol> por mes con entradas (.jul/.aug/.sep = #m0/#m1/#m2). El resto muestra .none. Para añadir entradas a otro mes: crea su <ol class="…"> y su regla en style.css.
  · Los radios deben ir ANTES de .yr, .months y .feed (los selectores usan ~).
- Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). -->
-<html lang="en" data-page="notes">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Notes · Jorge Cotera</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap">
-    <!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
-    <link rel="stylesheet" href="style.css">
-    <script src="transitions.js"></script>
-    <!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
-    <link rel="expect" href="#end" blocking="render">
-    <!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
-    <script
-        type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script>
-    <!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red -->
-</head>
-
+ Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). --><html lang="en" data-page="notes"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Notes · Jorge Cotera</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap"><!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
+<link rel="stylesheet" href="style.css">
+<script src="transitions.js"></script><!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
+<link rel="expect" href="#end" blocking="render"><!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
+<script type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script><!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red --></head>
 <body class="notes">
 
-    <header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html">work</a><a href="notes.html"
-            aria-current="page">notes</a><a href="about.html">about</a><a href="contact.html">contact</a></header>
-    <main class="pad">
-        <!-- BUILD:calendar -->
-<input class="y26" type="radio" name="m" id="m0" checked><input class="y26" type="radio" name="m" id="m1"><input class="y26" type="radio" name="m" id="m2"><input class="y26" type="radio" name="m" id="m3"><input class="y26" type="radio" name="m" id="m4"><input class="y26" type="radio" name="m" id="m5"><input class="y27" type="radio" name="m" id="m6"><input class="y27" type="radio" name="m" id="m7"><input class="y27" type="radio" name="m" id="m8"><input class="y27" type="radio" name="m" id="m9"><input class="y27" type="radio" name="m" id="m10"><input class="y27" type="radio" name="m" id="m11"><input class="y27" type="radio" name="m" id="m12"><input class="y27" type="radio" name="m" id="m13"><input class="y27" type="radio" name="m" id="m14"><input class="y27" type="radio" name="m" id="m15"><input class="y27" type="radio" name="m" id="m16"><input class="y27" type="radio" name="m" id="m17"><input class="y28" type="radio" name="m" id="m18"><input class="y28" type="radio" name="m" id="m19"><input class="y28" type="radio" name="m" id="m20"><input class="y28" type="radio" name="m" id="m21"><input class="y28" type="radio" name="m" id="m22"><input class="y28" type="radio" name="m" id="m23"><input class="y28" type="radio" name="m" id="m24"><input class="y28" type="radio" name="m" id="m25"><input class="y28" type="radio" name="m" id="m26"><input class="y28" type="radio" name="m" id="m27"><input class="y28" type="radio" name="m" id="m28"><input class="y28" type="radio" name="m" id="m29">
+<header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html">work</a><a href="notes.html" aria-current="page">notes</a><a href="about.html">about</a><a href="contact.html">contact</a></header>
+<main class="pad">
+<!-- BUILD:calendar -->
+<input class="y26" type="radio" name="m" id="m0"><input class="y26" type="radio" name="m" id="m1"><input class="y26" type="radio" name="m" id="m2" checked><input class="y26" type="radio" name="m" id="m3"><input class="y26" type="radio" name="m" id="m4"><input class="y26" type="radio" name="m" id="m5"><input class="y27" type="radio" name="m" id="m6"><input class="y27" type="radio" name="m" id="m7"><input class="y27" type="radio" name="m" id="m8"><input class="y27" type="radio" name="m" id="m9"><input class="y27" type="radio" name="m" id="m10"><input class="y27" type="radio" name="m" id="m11"><input class="y27" type="radio" name="m" id="m12"><input class="y27" type="radio" name="m" id="m13"><input class="y27" type="radio" name="m" id="m14"><input class="y27" type="radio" name="m" id="m15"><input class="y27" type="radio" name="m" id="m16"><input class="y27" type="radio" name="m" id="m17"><input class="y28" type="radio" name="m" id="m18"><input class="y28" type="radio" name="m" id="m19"><input class="y28" type="radio" name="m" id="m20"><input class="y28" type="radio" name="m" id="m21"><input class="y28" type="radio" name="m" id="m22"><input class="y28" type="radio" name="m" id="m23"><input class="y28" type="radio" name="m" id="m24"><input class="y28" type="radio" name="m" id="m25"><input class="y28" type="radio" name="m" id="m26"><input class="y28" type="radio" name="m" id="m27"><input class="y28" type="radio" name="m" id="m28"><input class="y28" type="radio" name="m" id="m29">
 <h1 class="giant yr yr26">2026</h1><h1 class="giant yr yr27">2027</h1><h1 class="giant yr yr28">2028</h1>
 <nav class="months" aria-label="Months"><span aria-hidden="true">←</span><div class="ring"><label for="m0" style="--i:0">July</label><label for="m1" style="--i:1">August</label><label for="m2" style="--i:2">September</label><label for="m3" style="--i:3">October</label><label for="m4" style="--i:4">November</label><label for="m5" style="--i:5">December</label><label for="m6" style="--i:6">January</label><label for="m7" style="--i:7">February</label><label for="m8" style="--i:8">March</label><label for="m9" style="--i:9">April</label><label for="m10" style="--i:10">May</label><label for="m11" style="--i:11">June</label><label for="m12" style="--i:12">July</label><label for="m13" style="--i:13">August</label><label for="m14" style="--i:14">September</label><label for="m15" style="--i:15">October</label><label for="m16" style="--i:16">November</label><label for="m17" style="--i:17">December</label><label for="m18" style="--i:18">January</label><label for="m19" style="--i:19">February</label><label for="m20" style="--i:20">March</label><label for="m21" style="--i:21">April</label><label for="m22" style="--i:22">May</label><label for="m23" style="--i:23">June</label><label for="m24" style="--i:24">July</label><label for="m25" style="--i:25">August</label><label for="m26" style="--i:26">September</label><label for="m27" style="--i:27">October</label><label for="m28" style="--i:28">November</label><label for="m29" style="--i:29">December</label></div><span aria-hidden="true">→</span></nav>
 <div class="feed">
 <p class="none">Nothing here yet.</p>
-
+<ol class="f2"><li><time>17</time><span class="k">Note</span><a href="notes/understanding-inodes.html">"Understanding inodes"</a></li><li><time>20</time><span class="k">Deep dive</span><a href="notes/how-linux-resolves-a-path.html">"How Linux resolves a path"</a></li><li><time>21</time><span class="k">Build log</span><a href="notes/redesigning-teampokemon.html">"Redesigning TeamPokemon"</a></li><li><time>23</time><span class="k">Lab</span><a href="notes/a-dns-server-in-the-home-lab.html">"A DNS server in the home lab"</a></li></ol>
 </div>
 <!-- /BUILD:calendar -->
-    </main>
-    <span id="end"></span>
-</body>
-
-</html>
+</main>
+<span id="end"></span></body></html>
