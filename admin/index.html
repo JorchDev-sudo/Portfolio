@@ -1,105 +1,246 @@
 <!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>jorchdev · admin</title>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>jorchdev · admin</title>
 <style>
-:root{--ink:#12141a;--paper:#e8eaec;--blue:#2b44ff;--mute:#5f6572}
-*{box-sizing:border-box}body{margin:0;padding:2rem;max-width:56rem;margin-inline:auto;background:var(--paper);color:var(--ink);font:14px/1.6 ui-monospace,Menlo,Consolas,monospace}
-h1,h2{font-family:Impact,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.03em;margin:.4em 0}h2{border-bottom:2px solid var(--ink);margin-top:2.5rem}
-form{display:grid;gap:.6rem;margin-top:1rem}label{display:grid;gap:.15rem;color:var(--mute)}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.6rem}
-input,select,textarea{font:inherit;padding:.4rem .5rem;border:2px solid var(--ink);background:#fff;color:var(--ink);width:100%}textarea{min-height:12rem}
-button{font:inherit;font-weight:700;padding:.35rem .8rem;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}button.alt{background:none;color:var(--ink)}button:hover{background:var(--blue);border-color:var(--blue);color:#fff}
-ul{list-style:none;padding:0}li{display:flex;gap:.6rem;align-items:center;padding:.25rem 0;border-bottom:1px solid #12141a22}li span{flex:1}#msg{position:fixed;right:1rem;bottom:1rem;background:var(--blue);color:#fff;padding:.4rem .8rem;display:none}
+  :root {
+    --ink: #12141a;
+    --paper: #e8eaec;
+    --blue: #2b44ff;
+    --mute: #5f6572
+  }
+
+  * {
+    box-sizing: border-box
+  }
+
+  body {
+    margin: 0;
+    padding: 2rem;
+    max-width: 56rem;
+    margin-inline: auto;
+    background: var(--paper);
+    color: var(--ink);
+    font: 14px/1.6 ui-monospace, Menlo, Consolas, monospace
+  }
+
+  h1,
+  h2 {
+    font-family: Impact, "Arial Narrow", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    margin: .4em 0
+  }
+
+  h2 {
+    border-bottom: 2px solid var(--ink);
+    margin-top: 2.5rem
+  }
+
+  form {
+    display: grid;
+    gap: .6rem;
+    margin-top: 1rem
+  }
+
+  label {
+    display: grid;
+    gap: .15rem;
+    color: var(--mute)
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: .6rem
+  }
+
+  input,
+  select,
+  textarea {
+    font: inherit;
+    padding: .4rem .5rem;
+    border: 2px solid var(--ink);
+    background: #fff;
+    color: var(--ink);
+    width: 100%
+  }
+
+  textarea {
+    min-height: 12rem
+  }
+
+  button {
+    font: inherit;
+    font-weight: 700;
+    padding: .35rem .8rem;
+    border: 2px solid var(--ink);
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer
+  }
+
+  button.alt {
+    background: none;
+    color: var(--ink)
+  }
+
+  button:hover {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff
+  }
+
+  ul {
+    list-style: none;
+    padding: 0
+  }
+
+  li {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    padding: .25rem 0;
+    border-bottom: 1px solid #12141a22
+  }
+
+  li span {
+    flex: 1
+  }
+
+  #msg {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    background: var(--blue);
+    color: #fff;
+    padding: .4rem .8rem;
+    display: none
+  }
 </style>
 <h1>jorchdev / admin</h1>
-<p><a href="/site/" target="_blank">Open site preview ↗</a> · changes are saved to <code>content/*.json</code> and the HTML is rebuilt automatically.</p>
+<p><a href="/site/" target="_blank">Open site preview ↗</a> · changes are saved to <code>content/*.json</code> and the
+  HTML is rebuilt automatically.</p>
 
 <h2>Status (home &amp; contact)</h2>
-<form id="status"><div class="row"><label>State<select name="state"><option value="online">online</option><option value="offline">offline</option></select></label><label>Text ("doing something")<input name="doing" maxlength="120"></label></div><div><button>Save status</button></div></form>
+<form id="status">
+  <div class="row"><label>State<select name="state">
+        <option value="online">online</option>
+        <option value="offline">offline</option>
+      </select></label><label>Text ("doing something")<input name="doing" maxlength="120"></label></div>
+  <div><button>Save status</button></div>
+</form>
 
 <h2>About</h2>
 <form id="about">
- <label>Description — paragraphs, blank line between them<textarea name="description" style="min-height:6rem"></textarea></label>
- <div class="row"><label>Location<input name="location"></label><label>Focus<input name="focus"></label><label>Currently<input name="currently"></label></div>
- <label>Text inside the portrait frame — shown only if there is no photo yet (optional)<input name="portraitText" maxlength="120"></label>
- <label>Portrait photo — 3:4 portrait, at least 1200×1600px, jpg/png/webp/avif, max 10MB<input type="file" id="aboutimgfile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif"></label>
- <input type="hidden" name="image"><div id="aboutimgprev"></div>
- <label>Résumé — upload a PDF, or paste a link (e.g. Google Drive)<input type="file" id="resumefile" accept="application/pdf"></label>
- <input type="hidden" name="resumeUrl"><div id="resumeprev"></div>
- <div><button>Save about</button></div></form>
+  <label>Description — paragraphs, blank line between them<textarea name="description"
+      style="min-height:6rem"></textarea></label>
+  <div class="row"><label>Location<input name="location"></label><label>Focus<input
+        name="focus"></label><label>Currently<input name="currently"></label></div>
+  <label>Text inside the portrait frame — shown only if there is no photo yet (optional)<input name="portraitText"
+      maxlength="120"></label>
+  <label>Portrait photo — 3:4 portrait, at least 1200×1600px, jpg/png/webp/avif, max 10MB<input type="file"
+      id="aboutimgfile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif"></label>
+  <input type="hidden" name="image">
+  <div id="aboutimgprev"></div>
+  <label>Résumé — upload a PDF, or paste a link (e.g. Google Drive)<input type="file" id="resumefile"
+      accept="application/pdf"></label>
+  <input type="hidden" name="resumeUrl">
+  <div id="resumeprev"></div>
+  <div><button>Save about</button></div>
+</form>
 
-<h2>Projects</h2><ul id="pl"></ul>
+<h2>Projects</h2>
+<ul id="pl"></ul>
 <form id="projects"><input type="hidden" name="id">
- <div class="row"><label>Title<input name="title" required></label><label>Colour<input name="color" type="color" value="#2b44ff"></label><label>Status %<input name="status" type="number" min="0" max="100" value="0"></label></div>
- <div class="row"><label>Stack<input name="stack" placeholder="Java, Spring Boot"></label><label>Role<input name="role"></label></div>
- <label>Summary — Markdown, optional (paragraphs, <code>## heading</code>, <code>- list</code>, code fences)<textarea name="summary" style="min-height:7rem"></textarea></label>
- <label>Diagram image, optional (png, jpg, webp, gif, avif · max 10 MB)<input type="file" id="imgfile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif"></label>
- <input type="hidden" name="image"><div id="imgprev"></div>
- <div><button>Save project</button> <button type="reset" class="alt">Clear</button></div></form>
+  <div class="row"><label>Title<input name="title" required></label><label>Colour<input name="color" type="color"
+        value="#2b44ff"></label><label>Status %<input name="status" type="number" min="0" max="100" value="0"></label>
+  </div>
+  <div class="row"><label>Stack<input name="stack" placeholder="Java, Spring Boot"></label><label>Role<input
+        name="role"></label></div>
+  <label>Summary — Markdown, optional (paragraphs, <code>## heading</code>, <code>- list</code>, code fences)<textarea
+      name="summary" style="min-height:7rem"></textarea></label>
+  <label>Diagram image, optional (png, jpg, webp, gif, avif · max 10 MB)<input type="file" id="imgfile"
+      accept="image/png,image/jpeg,image/webp,image/gif,image/avif"></label>
+  <input type="hidden" name="image">
+  <div id="imgprev"></div>
+  <div><button>Save project</button> <button type="reset" class="alt">Clear</button></div>
+</form>
 
-<h2>Notes</h2><ul id="nl"></ul>
+<h2>Notes</h2>
+<ul id="nl"></ul>
 <form id="notes"><input type="hidden" name="id">
- <div class="row"><label>Title<input name="title" required></label><label>Type<select name="type"><option value="note">Note</option><option value="deep">Deep dive</option><option value="build">Build log</option><option value="lab">Lab</option></select></label><label>Date<input name="date" type="date" required></label></div>
- <label>Body — paragraphs, <code>## heading</code>, <code>- list</code>, <code>```</code> code fences, <code>`inline`</code><textarea name="body"></textarea></label>
- <div><button>Save note</button> <button type="reset" class="alt">Clear</button></div></form>
+  <div class="row"><label>Title<input name="title" required></label><label>Type<select name="type">
+        <option value="note">Note</option>
+        <option value="deep">Deep dive</option>
+        <option value="build">Build log</option>
+        <option value="lab">Lab</option>
+      </select></label><label>Date<input name="date" type="date" required></label></div>
+  <label>Body — paragraphs, <code>## heading</code>, <code>- list</code>, <code>```</code> code fences,
+    <code>`inline`</code><textarea name="body"></textarea></label>
+  <div><button>Save note</button> <button type="reset" class="alt">Clear</button></div>
+</form>
 <div id="msg"></div>
 
 <script>
-const $ = s => document.querySelector(s), api = (m, u, b) => fetch(u, { method: m, headers: { 'Content-Type': 'application/json' }, body: b && JSON.stringify(b) }).then(r => r.json());
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-let data;
-const toast = t => { const m = $('#msg'); m.textContent = t; m.style.display = 'block'; setTimeout(() => m.style.display = 'none', 1800); };
-async function load() {
-  data = await api('GET', '/api/content');
-  for (const k of ['status', 'about']) for (const [n, v] of Object.entries(data.site[k] || {})) if ($('#' + k).elements[n]) $('#' + k).elements[n].value = v;
-  aboutPrev();
-  $('#pl').innerHTML = data.projects.map((p, i) => `<li><span>${String(i + 1).padStart(2, '0')} · ${esc(p.title)}</span><button class="alt" data-e="projects:${p.id}">edit</button><button class="alt" data-d="projects:${p.id}">delete</button></li>`).join('');
-  $('#nl').innerHTML = [...data.notes].sort((a, b) => b.date.localeCompare(a.date)).map(n => `<li><span>${n.date} · ${esc(data.types[n.type] || n.type)} · ${esc(n.title)}</span><button class="alt" data-e="notes:${n.id}">edit</button><button class="alt" data-d="notes:${n.id}">delete</button></li>`).join('');
-}
-document.addEventListener('click', async e => {
-  const [k, id] = (e.target.dataset.e || e.target.dataset.d || '').split(':'); if (!id) return;
-  if (e.target.dataset.d) { if (confirm('Delete "' + id + '"?')) { await api('DELETE', `/api/${k}/${id}`); toast('Deleted and rebuilt'); load(); } return; }
-  const item = data[k].find(x => x.id === id), f = $('#' + k);
-  for (const [key, v] of Object.entries(item)) if (f.elements[key]) f.elements[key].value = v;
-  if (k === 'projects') prev();
-  f.scrollIntoView({ behavior: 'smooth' });
-});
-for (const k of ['projects', 'notes']) $('#' + k).onsubmit = async e => {
-  e.preventDefault(); const d = Object.fromEntries(new FormData(e.target));
-  const r = await api('POST', '/api/' + k, d); if (r.error) return alert(r.error);
-  e.target.reset(); toast('Saved and rebuilt'); load();
-};
-/* diagram image: uploaded on selection, stored in img/, its path goes into the hidden "image" field */
-const prev = () => { const v = $('#projects').elements.image.value; $('#imgprev').innerHTML = v ? `<img src="${v.startsWith('img/') ? '/site/' + esc(v) : esc(v)}" style="max-height:90px;border:2px solid var(--ink)"> <button type="button" class="alt" id="imgrm">remove image</button>` : ''; };
-$('#imgfile').onchange = async e => {
-  const file = e.target.files[0]; if (!file) return;
-  const data = await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result.split(',')[1]); r.readAsDataURL(file); });
-  const r = await api('POST', '/api/upload', { name: file.name, data }); if (r.error) return alert(r.error);
-  $('#projects').elements.image.value = r.path; e.target.value = ''; prev();
-};
-document.addEventListener('click', e => { if (e.target.id === 'imgrm') { $('#projects').elements.image.value = ''; prev(); } });
-$('#projects').addEventListener('reset', () => setTimeout(prev));
-for (const k of ['status', 'about']) $('#' + k).onsubmit = async e => {
-  e.preventDefault(); const r = await api('POST', '/api/site', { [k]: Object.fromEntries(new FormData(e.target)) });
-  if (r.error) return alert(r.error); toast('Saved and rebuilt'); load();
-};
-/* about photo + résumé: uploaded on selection, stored in img/ and files/, paths go into hidden fields */
-const aboutPrev = () => {
-  const f = $('#about').elements;
-  $('#aboutimgprev').innerHTML = f.image.value ? `<img src="/site/${esc(f.image.value)}" style="max-height:90px;border:2px solid var(--ink)"> <button type="button" class="alt" id="imgrm2">remove photo</button>` : '';
-  $('#resumeprev').innerHTML = f.resumeUrl.value ? `<a href="${f.resumeUrl.value.startsWith('files/') ? '/site/' + esc(f.resumeUrl.value) : esc(f.resumeUrl.value)}" target="_blank">${esc(f.resumeUrl.value)}</a> <button type="button" class="alt" id="resrm">remove</button>` : '';
-};
-$('#aboutimgfile').onchange = async e => {
-  const file = e.target.files[0]; if (!file) return;
-  const data = await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result.split(',')[1]); r.readAsDataURL(file); });
-  const r = await api('POST', '/api/upload', { name: file.name, data }); if (r.error) return alert(r.error);
-  $('#about').elements.image.value = r.path; e.target.value = ''; aboutPrev();
-};
-$('#resumefile').onchange = async e => {
-  const file = e.target.files[0]; if (!file) return;
-  const data = await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result.split(',')[1]); r.readAsDataURL(file); });
-  const r = await api('POST', '/api/upload', { name: file.name, data, kind: 'resume' }); if (r.error) return alert(r.error);
-  $('#about').elements.resumeUrl.value = r.path; e.target.value = ''; aboutPrev();
-};
-document.addEventListener('click', e => { if (e.target.id === 'imgrm2') { $('#about').elements.image.value = ''; aboutPrev(); } if (e.target.id === 'resrm') { $('#about').elements.resumeUrl.value = ''; aboutPrev(); } });
-$('#about').addEventListener('reset', () => setTimeout(aboutPrev));
-load();
+  const $ = s => document.querySelector(s), api = (m, u, b) => fetch(u, { method: m, headers: { 'Content-Type': 'application/json' }, body: b && JSON.stringify(b) }).then(r => r.json());
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let data;
+  const toast = t => { const m = $('#msg'); m.textContent = t; m.style.display = 'block'; setTimeout(() => m.style.display = 'none', 1800); };
+  async function load() {
+    data = await api('GET', '/api/content');
+    for (const k of ['status', 'about']) for (const [n, v] of Object.entries(data.site[k] || {})) if ($('#' + k).elements[n]) $('#' + k).elements[n].value = v;
+    aboutPrev();
+    $('#pl').innerHTML = data.projects.map((p, i) => `<li><span>${String(i + 1).padStart(2, '0')} · ${esc(p.title)}</span><button class="alt" data-e="projects:${p.id}">edit</button><button class="alt" data-d="projects:${p.id}">delete</button></li>`).join('');
+    $('#nl').innerHTML = [...data.notes].sort((a, b) => b.date.localeCompare(a.date)).map(n => `<li><span>${n.date} · ${esc(data.types[n.type] || n.type)} · ${esc(n.title)}</span><button class="alt" data-e="notes:${n.id}">edit</button><button class="alt" data-d="notes:${n.id}">delete</button></li>`).join('');
+  }
+  document.addEventListener('click', async e => {
+    const [k, id] = (e.target.dataset.e || e.target.dataset.d || '').split(':'); if (!id) return;
+    if (e.target.dataset.d) { if (confirm('Delete "' + id + '"?')) { await api('DELETE', `/api/${k}/${id}`); toast('Deleted and rebuilt'); load(); } return; }
+    const item = data[k].find(x => x.id === id), f = $('#' + k);
+    for (const [key, v] of Object.entries(item)) if (f.elements[key]) f.elements[key].value = v;
+    if (k === 'projects') prev();
+    f.scrollIntoView({ behavior: 'smooth' });
+  });
+  for (const k of ['projects', 'notes']) $('#' + k).onsubmit = async e => {
+    e.preventDefault(); const d = Object.fromEntries(new FormData(e.target));
+    const r = await api('POST', '/api/' + k, d); if (r.error) return alert(r.error);
+    e.target.reset(); toast('Saved and rebuilt'); load();
+  };
+  /* diagram image: uploaded on selection, stored in img/, its path goes into the hidden "image" field */
+  const prev = () => { const v = $('#projects').elements.image.value; $('#imgprev').innerHTML = v ? `<img src="${v.startsWith('img/') ? '/site/' + esc(v) : esc(v)}" style="max-height:90px;border:2px solid var(--ink)"> <button type="button" class="alt" id="imgrm">remove image</button>` : ''; };
+  $('#imgfile').onchange = async e => {
+    const file = e.target.files[0]; if (!file) return;
+    const data = await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result.split(',')[1]); r.readAsDataURL(file); });
+    const r = await api('POST', '/api/upload', { name: file.name, data }); if (r.error) return alert(r.error);
+    $('#projects').elements.image.value = r.path; e.target.value = ''; prev();
+  };
+  document.addEventListener('click', e => { if (e.target.id === 'imgrm') { $('#projects').elements.image.value = ''; prev(); } });
+  $('#projects').addEventListener('reset', () => setTimeout(prev));
+  for (const k of ['status', 'about']) $('#' + k).onsubmit = async e => {
+    e.preventDefault(); const r = await api('POST', '/api/site', { [k]: Object.fromEntries(new FormData(e.target)) });
+    if (r.error) return alert(r.error); toast('Saved and rebuilt'); load();
+  };
+  /* about photo + résumé: uploaded on selection, stored in img/ and files/, paths go into hidden fields */
+  const aboutPrev = () => {
+    const f = $('#about').elements;
+    $('#aboutimgprev').innerHTML = f.image.value ? `<img src="/site/${esc(f.image.value)}" style="max-height:90px;border:2px solid var(--ink)"> <button type="button" class="alt" id="imgrm2">remove photo</button>` : '';
+    $('#resumeprev').innerHTML = f.resumeUrl.value ? `<a href="${f.resumeUrl.value.startsWith('files/') ? '/site/' + esc(f.resumeUrl.value) : esc(f.resumeUrl.value)}" target="_blank">${esc(f.resumeUrl.value)}</a> <button type="button" class="alt" id="resrm">remove</button>` : '';
+  };
+  $('#aboutimgfile').onchange = async e => {
+    const file = e.target.files[0]; if (!file) return;
+    const data = await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result.split(',')[1]); r.readAsDataURL(file); });
+    const r = await api('POST', '/api/upload', { name: file.name, data }); if (r.error) return alert(r.error);
+    $('#about').elements.image.value = r.path; e.target.value = ''; aboutPrev();
+  };
+  $('#resumefile').onchange = async e => {
+    const file = e.target.files[0]; if (!file) return;
+    const data = await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result.split(',')[1]); r.readAsDataURL(file); });
+    const r = await api('POST', '/api/upload', { name: file.name, data, kind: 'resume' }); if (r.error) return alert(r.error);
+    $('#about').elements.resumeUrl.value = r.path; e.target.value = ''; aboutPrev();
+  };
+  document.addEventListener('click', e => { if (e.target.id === 'imgrm2') { $('#about').elements.image.value = ''; aboutPrev(); } if (e.target.id === 'resrm') { $('#about').elements.resumeUrl.value = ''; aboutPrev(); } });
+  $('#about').addEventListener('reset', () => setTimeout(aboutPrev));
+  load();
 </script>

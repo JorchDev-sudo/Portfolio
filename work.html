@@ -4,17 +4,34 @@
  · .in: contenido de la slide; se inclina en 3D según su posición en el scroll (animation-timeline:view(inline)).
  · .diagram / .sum / .meta: imagen opcional del proyecto, resumen Markdown opcional y ficha (generados por admin/build.js desde content/projects.json).
  · nav.pn > .drum: menú de proyectos en tambor 3D. style="--i:N" es el índice de cada enlace; gira con el scroll de .rail.
- Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). --><html lang="en" data-page="work"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Work · Jorge Cotera</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap"><!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
-<link rel="stylesheet" href="style.css">
-<script src="transitions.js"></script><!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
-<link rel="expect" href="#end" blocking="render"><!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
-<script type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script><!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red --></head>
+ Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). -->
+<html lang="en" data-page="work">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Work · Jorge Cotera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap">
+    <!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
+    <link rel="stylesheet" href="style.css">
+    <script src="transitions.js"></script>
+    <!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
+    <link rel="expect" href="#end" blocking="render">
+    <!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
+    <script
+        type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script>
+    <!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red -->
+</head>
+
 <body>
 
-<header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html" aria-current="page">work</a><a href="notes.html">notes</a><a href="about.html">about</a><a href="contact.html">contact</a></header>
-<main class="rail">
-<!-- BUILD:slides -->
+    <header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html" aria-current="page">work</a><a
+            href="notes.html">notes</a><a href="about.html">about</a><a href="contact.html">contact</a></header>
+    <main class="rail">
+        <!-- BUILD:slides -->
 <section class="slide" id="p1" style="--bg:#2b44ff"><div class="in">
 <div class="l"><h2 class="giant">Work</h2><p class="pname">"Poketeams"</p></div>
 <div class="r"><div class="sum"><p>A Pokémon team management platform built with Spring Boot, GraphQL and React.</p></div><dl class="meta"><div><dt>Stack</dt><dd>Java, Spring Boot, GraphQL, React</dd></div><div><dt>Role</dt><dd>Full-stack</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:87%"></span></dd></div></dl></div>
@@ -32,10 +49,14 @@
 <div class="r"></div>
 </div></section>
 <!-- /BUILD:slides -->
-</main>
-<nav class="pn" aria-label="Projects"><span aria-hidden="true">←</span>
-<!-- BUILD:drum -->
+    </main>
+    <nav class="pn" aria-label="Projects"><span aria-hidden="true">←</span>
+        <!-- BUILD:drum -->
 <div class="drum" style="--n:4"><a href="#p1" style="--i:0"><small>Project</small><b>01</b></a><a href="#p2" style="--i:1"><small>Project</small><b>02</b></a><a href="#p3" style="--i:2"><small>Project</small><b>03</b></a><a href="#p4" style="--i:3"><small>Project</small><b>04</b></a></div>
 <!-- /BUILD:drum -->
-<span aria-hidden="true">→</span></nav>
-<span id="end"></span></body></html>
+        <span aria-hidden="true">→</span>
+    </nav>
+    <span id="end"></span>
+</body>
+
+</html>

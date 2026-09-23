@@ -41,10 +41,10 @@ http.createServer(async (req, res) => {
         const d = await body(req), site = read('site.json');
         if (d.status) site.status = { state: d.status.state === 'offline' ? 'offline' : 'online', doing: str(d.status.doing, 120) };
         if (d.about) {
-    const image = str(d.about.image, 300); if (image && !/^(img\/[\w.-]+|https?:\/\/\S+)$/.test(image)) throw new Error('Invalid image path');
-    const resumeUrl = str(d.about.resumeUrl, 300); if (resumeUrl && !/^(files\/[\w.-]+|https?:\/\/\S+)$/.test(resumeUrl)) throw new Error('Invalid résumé link');
-    site.about = { description: String(d.about.description ?? '').slice(0, 5000), location: str(d.about.location), focus: str(d.about.focus), currently: str(d.about.currently), portraitText: str(d.about.portraitText, 120), image, resumeUrl };
-  }
+          const image = str(d.about.image, 300); if (image && !/^(img\/[\w.-]+|https?:\/\/\S+)$/.test(image)) throw new Error('Invalid image path');
+          const resumeUrl = str(d.about.resumeUrl, 300); if (resumeUrl && !/^(files\/[\w.-]+|https?:\/\/\S+)$/.test(resumeUrl)) throw new Error('Invalid résumé link');
+          site.about = { description: String(d.about.description ?? '').slice(0, 5000), location: str(d.about.location), focus: str(d.about.focus), currently: str(d.about.currently), portraitText: str(d.about.portraitText, 120), image, resumeUrl };
+        }
         write('site.json', site); build(); return send(res, 200, site);
       }
       if (req.method === 'POST' && kind === 'upload') {           // { name, data: base64, kind?: "image"|"resume" } → saved in img/ or files/
