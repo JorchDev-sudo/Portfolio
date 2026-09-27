@@ -611,8 +611,13 @@ body {
    }
 
    /* BUILD:drum-fallback */
-body:not(:has(:target)) .drum a:nth-child(1){background:#fff;color:#000;translate:0 -.5rem 2.5rem}
-/* /BUILD:drum-fallback */
+   body:not(:has(:target)) .drum a:nth-child(1) {
+      background: #fff;
+      color: #000;
+      translate: 0 -.5rem 2.5rem
+   }
+
+   /* /BUILD:drum-fallback */
 }
 
 /* NOTES — calendario 3D sin JS (jul 2026 → dic 2028).
@@ -722,37 +727,131 @@ body:not(:has(:target)) .drum a:nth-child(1){background:#fff;color:#000;translat
 
 /* Reglas del calendario generadas por admin/build.js (año visible, --s por mes, feed por mes). No editar a mano. */
 /* BUILD:calendar-css */
-.y26:checked~.yr26,.y27:checked~.yr27,.y28:checked~.yr28{display:block}
-#m0:checked~*{--s:0}
-#m1:checked~*{--s:1}
-#m2:checked~*{--s:2}
-#m3:checked~*{--s:3}
-#m4:checked~*{--s:4}
-#m5:checked~*{--s:5}
-#m6:checked~*{--s:6}
-#m7:checked~*{--s:7}
-#m8:checked~*{--s:8}
-#m9:checked~*{--s:9}
-#m10:checked~*{--s:10}
-#m11:checked~*{--s:11}
-#m12:checked~*{--s:12}
-#m13:checked~*{--s:13}
-#m14:checked~*{--s:14}
-#m15:checked~*{--s:15}
-#m16:checked~*{--s:16}
-#m17:checked~*{--s:17}
-#m18:checked~*{--s:18}
-#m19:checked~*{--s:19}
-#m20:checked~*{--s:20}
-#m21:checked~*{--s:21}
-#m22:checked~*{--s:22}
-#m23:checked~*{--s:23}
-#m24:checked~*{--s:24}
-#m25:checked~*{--s:25}
-#m26:checked~*{--s:26}
-#m27:checked~*{--s:27}
-#m28:checked~*{--s:28}
-#m29:checked~*{--s:29}
+.y26:checked~.yr26,
+.y27:checked~.yr27,
+.y28:checked~.yr28 {
+   display: block
+}
+
+#m0:checked~* {
+   --s: 0
+}
+
+#m1:checked~* {
+   --s: 1
+}
+
+#m2:checked~* {
+   --s: 2
+}
+
+#m3:checked~* {
+   --s: 3
+}
+
+#m4:checked~* {
+   --s: 4
+}
+
+#m5:checked~* {
+   --s: 5
+}
+
+#m6:checked~* {
+   --s: 6
+}
+
+#m7:checked~* {
+   --s: 7
+}
+
+#m8:checked~* {
+   --s: 8
+}
+
+#m9:checked~* {
+   --s: 9
+}
+
+#m10:checked~* {
+   --s: 10
+}
+
+#m11:checked~* {
+   --s: 11
+}
+
+#m12:checked~* {
+   --s: 12
+}
+
+#m13:checked~* {
+   --s: 13
+}
+
+#m14:checked~* {
+   --s: 14
+}
+
+#m15:checked~* {
+   --s: 15
+}
+
+#m16:checked~* {
+   --s: 16
+}
+
+#m17:checked~* {
+   --s: 17
+}
+
+#m18:checked~* {
+   --s: 18
+}
+
+#m19:checked~* {
+   --s: 19
+}
+
+#m20:checked~* {
+   --s: 20
+}
+
+#m21:checked~* {
+   --s: 21
+}
+
+#m22:checked~* {
+   --s: 22
+}
+
+#m23:checked~* {
+   --s: 23
+}
+
+#m24:checked~* {
+   --s: 24
+}
+
+#m25:checked~* {
+   --s: 25
+}
+
+#m26:checked~* {
+   --s: 26
+}
+
+#m27:checked~* {
+   --s: 27
+}
+
+#m28:checked~* {
+   --s: 28
+}
+
+#m29:checked~* {
+   --s: 29
+}
 
 /* /BUILD:calendar-css */
 .feed li {
@@ -876,18 +975,37 @@ body:not(:has(:target)) .drum a:nth-child(1){background:#fff;color:#000;translat
    border: 2px solid var(--ink);
    box-shadow: 1rem 1rem 0 var(--blue);
    margin: 2rem 1rem 0 0;
-   display: grid;
-   place-items: center;
-   padding: 1rem;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   gap: clamp(1rem, 3cqw, 2.5rem);
+
+   padding: 1.5rem;
    text-align: center;
    color: var(--mute);
-   overflow: hidden
+   overflow: hidden;
+
+   container-type: size;
 }
 
-.frame img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover
+.frame h1 {
+   font-size: clamp(2rem, min(7cqw, 5cqh), 4rem);
+   line-height: 1;
+}
+
+.frame p {
+   font-size: clamp(1rem, min(4cqw, 2.5cqh), 1.8rem);
+   line-height: 1.5;
+}
+
+.frame p+p {
+   padding-top: clamp(.5rem, 1.5cqw, 1.25rem);
+   border-top: 1px solid var(--line);
+}
+
+.about-photo {
+   display: inside;
 }
 
 .frame figcaption {
@@ -1071,14 +1189,16 @@ html[data-page=article] {
       grid-template-rows: auto minmax(0, 1fr)
    }
 
-   .about {
-      display: flex;
-      flex-direction: column
+   .about-photo {
+      display: block;
+      width: 100%;
+      max-height: 12rem;
+      object-fit: cover;
    }
 
    .frame {
       width: 60%;
-      margin-left: auto
+      margin-left: auto;
    }
 
    .foot {
