@@ -611,10 +611,7 @@ body {
    }
 
    /* BUILD:drum-fallback */
-body:has(#p2:target) .drum{transform:translateY(calc(var(--R)*-.156)) translateZ(calc(var(--R)*-1)) rotateX(-9deg) rotateY(-26deg)}
-body:has(#p3:target) .drum{transform:translateY(calc(var(--R)*-.156)) translateZ(calc(var(--R)*-1)) rotateX(-9deg) rotateY(-52deg)}
-body:has(#p4:target) .drum{transform:translateY(calc(var(--R)*-.156)) translateZ(calc(var(--R)*-1)) rotateX(-9deg) rotateY(-78deg)}
-body:not(:has(:target)) .drum a:nth-child(1),body:has(#p1:target) .drum a:nth-child(1),body:has(#p2:target) .drum a:nth-child(2),body:has(#p3:target) .drum a:nth-child(3),body:has(#p4:target) .drum a:nth-child(4){background:#fff;color:#000;translate:0 -.5rem 2.5rem}
+body:not(:has(:target)) .drum a:nth-child(1){background:#fff;color:#000;translate:0 -.5rem 2.5rem}
 /* /BUILD:drum-fallback */
 }
 
@@ -756,8 +753,7 @@ body:not(:has(:target)) .drum a:nth-child(1),body:has(#p1:target) .drum a:nth-ch
 #m27:checked~*{--s:27}
 #m28:checked~*{--s:28}
 #m29:checked~*{--s:29}
-#m2:checked~.feed .none{display:none}
-#m2:checked~.feed .f2{display:block}
+
 /* /BUILD:calendar-css */
 .feed li {
    display: grid;
