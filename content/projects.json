@@ -1,0 +1,62 @@
+[
+  {
+    "id": "node-js-spring-boot-integrated-api",
+    "title": "Node.js - Spring Boot Integrated API",
+    "color": "#ff7b00",
+    "summary": "I developed and connected two APIs, one of them working as the gateway in Node.js and the another one as an internal data processing API in Spring Boot. ",
+    "stack": "Node.js, Spring Boot",
+    "role": "Backend Developer",
+    "status": 100,
+    "image": "img/screenshot-2026-09-27-000835-mulgqlnu.png"
+  },
+  {
+    "id": "to-do-api",
+    "title": "To-Do API",
+    "color": "#fb29ff",
+    "summary": "Developed a classic beginner API for managing tasks and their states",
+    "stack": "Spring Boot, JPA, Spring Security, PostgreSQL",
+    "role": "Backend Developer",
+    "status": 100,
+    "image": "img/gemini-generated-image-62zn0y62zn0y62zn-mulgtq0e.jpg"
+  },
+  {
+    "id": "library-api",
+    "title": "Library API",
+    "color": "#29ffdb",
+    "summary": "Developed another classic beginner API for managing Books, Authors and Loans, but this time with a simple Frontend using basic Html, Css y Js without frameworks or libraries like React, also developed some transaction for the loan logic.",
+    "stack": "Spring Boot, JPA, Spring Security, PostgreSQL, Junit5, Mockito, some other technologies that I don't remember",
+    "role": "Fullstack Developer",
+    "status": 100,
+    "image": "img/gemini-generated-image-uptodquptodqupto-mulgxwoz.jpg"
+  },
+  {
+    "id": "billing-saas",
+    "title": "Billing SaaS",
+    "color": "#ff2929",
+    "summary": "My idea was to develop an entire SaaS Billing platforms that lets small businesses to have a natural system for billing their products. But I get bored at the middle of the project, but I used Factory method and some entities snapshots for the bill entities.",
+    "stack": "Spring Ecosystem",
+    "role": "Backend Developer (for now)",
+    "status": 60,
+    "image": "img/gemini-generated-image-4vqfsk4vqfsk4vqf-mulh4o2d.jpg"
+  },
+  {
+    "id": "poketeams",
+    "title": "PokeTeams",
+    "color": "#2b44ff",
+    "summary": "I'm currently developing a system for managing Pokemon competitive teams and Trainers using GraphQl, some Rest APIs and a React Frontend, also exploring some concurrent technologies such as R2DBC and Spring WebFlux.",
+    "stack": "Spring Ecosystem, React",
+    "role": "Fullstack Developer",
+    "status": 70,
+    "image": "img/gemini-generated-image-jicybojicybojicy-1-mulh8tkk.jpg"
+  },
+  {
+    "id": "portfolio",
+    "title": "Portfolio",
+    "color": "#a8a8a8",
+    "summary": "This portfolio is a project on itself, so have a look in the github repository!",
+    "stack": "Only html, css and js",
+    "role": "Fullstack Developer",
+    "status": 100,
+    "image": ""
+  }
+]

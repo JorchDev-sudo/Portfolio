@@ -4,44 +4,46 @@
  · .in: contenido de la slide; se inclina en 3D según su posición en el scroll (animation-timeline:view(inline)).
  · .diagram / .sum / .meta: imagen opcional del proyecto, resumen Markdown opcional y ficha (generados por admin/build.js desde content/projects.json).
  · nav.pn > .drum: menú de proyectos en tambor 3D. style="--i:N" es el índice de cada enlace; gira con el scroll de .rail.
- Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). -->
-<html lang="en" data-page="work">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Work · Jorge Cotera</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap">
-    <!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
-    <link rel="stylesheet" href="style.css">
-    <script src="transitions.js"></script>
-    <!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
-    <link rel="expect" href="#end" blocking="render">
-    <!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
-    <script
-        type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script>
-    <!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red -->
-</head>
-
+ Transiciones entre páginas: data-page en <html> + style.css (ver DOCS.md). --><html lang="en" data-page="work"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Work · Jorge Cotera</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;700&display=swap"><!-- en <link>, no @import: carga en paralelo y no retrasa el primer render -->
+<link rel="stylesheet" href="style.css">
+<script src="transitions.js"></script><!-- calcula la dirección de la transición según origen y destino (DOCS.md §1) -->
+<link rel="expect" href="#end" blocking="render"><!-- Chrome no muestra la página hasta leer #end (final del body): la transición captura la página completa -->
+<script type="speculationrules">{"prefetch":[{"urls":["index.html","work.html","notes.html","about.html","contact.html"],"eagerness":"eager"}]}</script><!-- JSON declarativo (no es JS): precarga las otras páginas para que la primera navegación no espere a la red --></head>
 <body>
 
-    <header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html" aria-current="page">work</a><a
-            href="notes.html">notes</a><a href="about.html">about</a><a href="contact.html">contact</a></header>
-    <main class="rail">
-        <!-- BUILD:slides -->
-
+<header class="top"><a href="index.html">jorchdev:~$</a><a href="work.html" aria-current="page">work</a><a href="notes.html">notes</a><a href="about.html">about</a><a href="contact.html">contact</a></header>
+<main class="rail">
+<!-- BUILD:slides -->
+<section class="slide" id="p1" style="--bg:#ff7b00"><div class="in">
+<div class="l"><h2 class="giant">Work</h2><p class="pname">"Node.js - Spring Boot Integrated API"</p></div>
+<div class="r"><img class="diagram" src="img/screenshot-2026-09-27-000835-mulgqlnu.png" alt="Node.js - Spring Boot Integrated API diagram"><div class="sum"><p>I developed and connected two APIs, one of them working as the gateway in Node.js and the another one as an internal data processing API in Spring Boot. </p></div><dl class="meta"><div><dt>Stack</dt><dd>Node.js, Spring Boot</dd></div><div><dt>Role</dt><dd>Backend Developer</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:100%"></span></dd></div></dl></div>
+</div></section>
+<section class="slide" id="p2" style="--bg:#fb29ff"><div class="in">
+<div class="l"><h2 class="giant">Work</h2><p class="pname">"To-Do API"</p></div>
+<div class="r"><img class="diagram" src="img/gemini-generated-image-62zn0y62zn0y62zn-mulgtq0e.jpg" alt="To-Do API diagram"><div class="sum"><p>Developed a classic beginner API for managing tasks and their states</p></div><dl class="meta"><div><dt>Stack</dt><dd>Spring Boot, JPA, Spring Security, PostgreSQL</dd></div><div><dt>Role</dt><dd>Backend Developer</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:100%"></span></dd></div></dl></div>
+</div></section>
+<section class="slide" id="p3" style="--bg:#29ffdb"><div class="in">
+<div class="l"><h2 class="giant">Work</h2><p class="pname">"Library API"</p></div>
+<div class="r"><img class="diagram" src="img/gemini-generated-image-uptodquptodqupto-mulgxwoz.jpg" alt="Library API diagram"><div class="sum"><p>Developed another classic beginner API for managing Books, Authors and Loans, but this time with a simple Frontend using basic Html, Css y Js without frameworks or libraries like React, also developed some transaction for the loan logic.</p></div><dl class="meta"><div><dt>Stack</dt><dd>Spring Boot, JPA, Spring Security, PostgreSQL, Junit5, Mockito, some other technologies that I don&#39;t remember</dd></div><div><dt>Role</dt><dd>Fullstack Developer</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:100%"></span></dd></div></dl></div>
+</div></section>
+<section class="slide" id="p4" style="--bg:#ff2929"><div class="in">
+<div class="l"><h2 class="giant">Work</h2><p class="pname">"Billing SaaS"</p></div>
+<div class="r"><img class="diagram" src="img/gemini-generated-image-4vqfsk4vqfsk4vqf-mulh4o2d.jpg" alt="Billing SaaS diagram"><div class="sum"><p>My idea was to develop an entire SaaS Billing platforms that lets small businesses to have a natural system for billing their products. But I get bored at the middle of the project, but I used Factory method and some entities snapshots for the bill entities.</p></div><dl class="meta"><div><dt>Stack</dt><dd>Spring Ecosystem</dd></div><div><dt>Role</dt><dd>Backend Developer (for now)</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:60%"></span></dd></div></dl></div>
+</div></section>
+<section class="slide" id="p5" style="--bg:#2b44ff"><div class="in">
+<div class="l"><h2 class="giant">Work</h2><p class="pname">"PokeTeams"</p></div>
+<div class="r"><img class="diagram" src="img/gemini-generated-image-jicybojicybojicy-1-mulh8tkk.jpg" alt="PokeTeams diagram"><div class="sum"><p>I&#39;m currently developing a system for managing Pokemon competitive teams and Trainers using GraphQl, some Rest APIs and a React Frontend, also exploring some concurrent technologies such as R2DBC and Spring WebFlux.</p></div><dl class="meta"><div><dt>Stack</dt><dd>Spring Ecosystem, React</dd></div><div><dt>Role</dt><dd>Fullstack Developer</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:70%"></span></dd></div></dl></div>
+</div></section>
+<section class="slide" id="p6" style="--bg:#a8a8a8"><div class="in">
+<div class="l"><h2 class="giant">Work</h2><p class="pname">"Portfolio"</p></div>
+<div class="r"><div class="sum"><p>This portfolio is a project on itself, so have a look in the github repository!</p></div><dl class="meta"><div><dt>Stack</dt><dd>Only html, css and js</dd></div><div><dt>Role</dt><dd>Fullstack Developer</dd></div><div><dt>Status</dt><dd><span class="bar" style="--w:100%"></span></dd></div></dl></div>
+</div></section>
 <!-- /BUILD:slides -->
-    </main>
-    <nav class="pn" aria-label="Projects"><span aria-hidden="true">←</span>
-        <!-- BUILD:drum -->
-<div class="drum" style="--n:2"></div>
+</main>
+<nav class="pn" aria-label="Projects"><span aria-hidden="true">←</span>
+<!-- BUILD:drum -->
+<div class="drum" style="--n:6"><a href="#p1" style="--i:0"><small>Project</small><b>01</b></a><a href="#p2" style="--i:1"><small>Project</small><b>02</b></a><a href="#p3" style="--i:2"><small>Project</small><b>03</b></a><a href="#p4" style="--i:3"><small>Project</small><b>04</b></a><a href="#p5" style="--i:4"><small>Project</small><b>05</b></a><a href="#p6" style="--i:5"><small>Project</small><b>06</b></a></div>
 <!-- /BUILD:drum -->
-        <span aria-hidden="true">→</span>
-    </nav>
-    <span id="end"></span>
-</body>
-
-</html>
+<span aria-hidden="true">→</span></nav>
+<span id="end"></span></body></html>
