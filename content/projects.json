@@ -54,7 +54,7 @@
     "title": "Portfolio",
     "color": "#a8a8a8",
     "summary": "This portfolio is a project on itself, so have a look in the github repository!",
-    "stack": "Only html, css and js",
+    "stack": "Html, css, js and Node.js",
     "role": "Fullstack Developer",
     "status": 100,
     "image": ""
